@@ -1,6 +1,26 @@
-<iframe id="Choppy-Orc"
-    title="Choppy Orc"
-    width="2000"
-    height="2000"
-    src="https://mystifying-goodall-147690.netlify.app/">
-</iframe>
+/**
+ * This function embeds a website into another website using an iframe.
+ * 
+ * @param {string} https://mystifying-goodall-147690.netlify.app/ - The URL of the website to be embedded.
+ * @param {string} Choppy-Orc - The ID of the HTML element that will contain the iframe.
+ * @param {number} 600 - The width of the iframe in pixels.
+ * @param {number} 700 - The height of the iframe in pixels.
+ * @returns {void}
+ */
+function embedWebsite(url, containerId, width, height) {
+  try {
+    // Get the container element
+    const container = document.getElementById(containerId);
+    
+    // Create the iframe element
+    const iframe = document.createElement('iframe');
+    iframe.src = url;
+    iframe.width = width;
+    iframe.height = height;
+    
+    // Append the iframe to the container
+    container.appendChild(iframe);
+  } catch (error) {
+    console.error(error);
+  }
+}
