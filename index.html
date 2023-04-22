@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Button Example</title>
+  </head>
+  <body>
+    <style>
+      .button {
+        display: inline-block;
+        margin: 10px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #3498db;
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+      }
+
+      .button:hover {
+        background-color: #2980b9;
+      }
+
+      .button img {
+        display: block;
+        width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+      }
+    </style>
+
+    <button class="button">
+      <img src="https://via.placeholder.com/200x200" alt="Button 1 Image">
+      Button 1
+    </button>
+
+    <button class="button">
+      <img src="https://via.placeholder.com/200x200" alt="Button 2 Image">
+      Button 2
+    </button>
+
+    <button class="button">
+      <img src="https://via.placeholder.com/200x200" alt="Button 3 Image">
+      Button 3
+    </button>
+
+    <button class="button">
+      <img src="https://via.placeholder.com/200x200" alt="Button 4 Image">
+      Button 4
+    </button>
+
+    <button class="button">
+      <img src="https://via.placeholder.com/200x200" alt="Button 5 Image">
+      Button 5
+    </button>
+
+    <button class="button">
+      <img src="https://via.placeholder.com/200x200" alt="Button 6 Image">
+      Button 6
+    </button>
+
+    <button class="button">
+      <img src="https://via.placeholder.com/200x200" alt="Button 7 Image">
+      Button 7
+    </button>
+
+    <button class="button">
+      <img src="https://via.placeholder.com/200x200" alt="Button 8 Image">
+      Button 8
+    </button>
+
+    <button class="button">
+      <img src="https://via.placeholder.com/200x200" alt="Button 9 Image">
+      Button 9
+    </button>
+
+    <button class="button">
+      <img src="https://via.placeholder.com/200x200" alt="Button 10 Image">
+      Button 10
+    </button>
+
+    <script>
+      var buttons = document.getElementsByClassName("button");
+      for (var i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener("click", function() {
+          window.open("https://ahsisd.github.io/Class/");
+        });
+      }
+    </script>
+  </body>
+</html>
