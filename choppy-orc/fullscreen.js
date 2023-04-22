@@ -2,10 +2,10 @@
  * This function creates a fullscreen button on an iframe.
  * When the button is clicked, the iframe will be displayed in fullscreen mode.
  *
- * @param {string} ChoppyOrc - The ID of the iframe element.
+ * @param {string} ChoppyOrc  - The ID of the iframe element.
  */
-function createFullscreenButton(iframeId) {
-  const iframe = document.getElementById(iframeId);
+function createFullscreenButton(ChoppyOrc) {
+  const iframe = document.getElementById(ChoppyOrc);
 
   // Create the fullscreen button
   const fullscreenButton = document.createElement('button');
