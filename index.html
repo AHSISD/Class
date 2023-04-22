@@ -1,78 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
+<html>
+  <head>
     <title>UnberserkGames</title>
-    <link rel="stylesheet" href="design/style.css" />
+    <link rel="icon" href="https://i.ibb.co/fd0VYJy/icon.png">
+    <style>
+      body {
+        background-color: #2b2d30;
+      }
+      button {
+        background-color: white;
+        color: black;
+        border: none;
+        padding: 10px 20px;
+        margin: 10px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: black;
+        color: white;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Welcome to UnberserkGames</h1>
+    <button id="button1" onclick="window.location.href='https://unberserk.github.io/Class/eddynardo'">Button 1</button>
+    <button id="button2" onclick="window.location.href='https://unberserk.github.io/Class/cookie-clicker'">Button 2</button>
+    <button id="button3" onclick="window.location.href='https://unberserk.github.io/Class/tetris'">Button 3</button>
+    <button id="button4">Button 4 Title</button>
+    <button id="button5">Button 5 Title</button>
+    <button id="button6">Button 6 Title</button>
+    <button id="button7">Button 7 Title</button>
+    <button id="button8">Button 8 Title</button>
+    <button id="button9">Button 9 Title</button>
+    <button id="button10">Button 10 Title</button>
 
-    <script src="source/Board.js"></script>
-    <script src="source/Display.js"></script>
-    <script src="source/HighScores.js"></script>
-    <script src="source/Keyboard.js"></script>
-    <script src="source/Level.js"></script>
-    <script src="source/Score.js"></script>
-    <script src="source/Tetrimino.js"></script>
-    <script src="source/Tetriminos.js"></script>
-    <script src="source/Init.js"></script>
-
-    <script src="../utils/Storage.js"></script>
-    <script src="../utils/Sounds.js"></script>
-    <script src="../utils/KeyCode.js"></script>
-    <script src="../utils/Utils.js"></script>
-</head>
-
-<body>
-    <div id="container" class="mainScreen">
-        <div class="leftSide">
-            <div class="board">
-                <div class="field"></div>
-                <div class="winker"></div>
-                <div id="ghost"></div>
-                <div id="piece"></div>
-            </div>
-
-            <div class="messages">
-                <div class="text">
-                    <h2>Tetris</h2>
-                    <p>Select the level</p>
-                </div>
-
-                <div class="levels">
-                    choose level:<br />
-                    <div class="left" data-action="decrease"></div>
-                    <span class="leveler">1</span>
-                    <div class="right" data-action="increase"></div>
-                    <ul>
-                        <li><a href="#" data-action="start">s<u>t</u>art</a></li>
-                        <li><a href="#" data-action="highScores">h<u>i</u>gh scores</a></li>
-                        <li><a href="#" data-action="help"><u>h</u>elp</a></li>
-                    </ul>
-                </div>
-
-                <ul class="pause">
-                    <li><a href="#" data-action="endPause"><u>c</u>ontinue</a></li>
-                    <li><a href="#" data-action="finishGame"><u>n</u>ew game</a></li>
-                </ul>
-
-                <div class="input">
-                    <p>your name:</p>
-                    <input type="text" />
-                    <a href="#" data-action="save"><u>o</u>k</a>
-                    <a class="restart" href="#" data-action="mainScreen"><u>n</u>ew game</a>
-                </div>
-
-                <div class="high">
-                    <div class="scores"></div>
-                    <div class="none">no scores available</div>
-                    <a class="restore" href="#" data-action="restore"><u>r</u>estore</a>
-                    <a class="back" href="#" data-action="mainScreen"><u>b</u>ack</a>
-                </div>
-
-                <div class="controls">
-                    <div class="left">
-                        <b>Left Arrow</b><br />
-                        <b>Right Arrow</b><br />
-                        <b>Down Arrow</b><br />
-                        <b>X</b> or <b>Up Arrow</b><br />
-                        <b>Z</b><br />
-                        <b>Ctrl</b> or
+    <script>
+      var button1 = document.getElementById("button1");
+      button1.innerHTML = "<img src='https://www.eddynardo.com/static/07e49aa19df90d4c3b08ddb5009aeff3/55780/choppy-orc.png'><br>Eddynardo";
+      var button2 = document.getElementById("button2");
+      button2.innerHTML = "<img src='https://m.media-amazon.com/images/I/71VSpLvjtaL.png'><br>Cookie Clicker";
+      var button3 = document.getElementById("button3");
+      button3.innerHTML = "<img src='https://tetris.wiki/images/5/52/Tetris_%28N3TWORK%29_icon.png'><br>Tetris";
+      var button4 = document.getElementById("button4");
+      button4.innerHTML = "Button 4 Title";
+      var button5 = document.getElementById("button5");
+      button5.innerHTML = "Button 5 Title";
+      var button6 = document.getElementById("button6");
+      button6.innerHTML = "Button 6 Title";
+      var button7 = document.getElementById("button7");
+      button7.innerHTML = "Button 7 Title";
+      var button8 = document.getElementById("button8");
+      button8.innerHTML = "Button 8 Title";
+      var button9 = document.getElementById("button9");
+      button9.innerHTML = "Button 9 Title";
+      var button10 = document.getElementById("button10");
+      button10.innerHTML = "Button 10 Title";
+    </script>
+  </body>
+</html>
