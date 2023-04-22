@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Button Example</title>
+  </head>
+  <body>
+    <iframe src="https://mystifying-goodall-147690.netlify.app/" width="500" height="500"></iframe>
+
+    <button onclick="fullscreen()">Make iframe fullscreen</button>
+
+    <script>
+      function fullscreen() {
+        var iframe = document.getElementsByTagName('iframe')[0];
+        if (iframe) {
+          if (iframe.requestFullscreen) {
+            iframe.requestFullscreen();
+          } else if (iframe.webkitRequestFullscreen) {
+            iframe.webkitRequestFullscreen();
+          } else if (iframe.mozRequestFullScreen) {
+            iframe.mozRequestFullScreen();
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
