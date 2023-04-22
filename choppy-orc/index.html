@@ -1,2 +1,26 @@
-<iframe id="ChoppyOrc" title="Choppy Orc" width="1900" height="950" src="https://mystifying-goodall-147690.netlify.app/">
-</iframe>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Button Example</title>
+  </head>
+  <body>
+    <script>
+      function fullscreen() {
+        var iframe = document.getElementById("my-iframe");
+        if (iframe.requestFullscreen) {
+          iframe.requestFullscreen();
+        } else if (iframe.webkitRequestFullscreen) {
+          iframe.webkitRequestFullscreen();
+        } else if (iframe.mozRequestFullScreen) {
+          iframe.mozRequestFullScreen();
+        }
+      }
+    </script>
+
+    <iframe id="my-iframe" src="https://mystifying-goodall-147690.netlify.app/" width="500" height="500"></iframe>
+    <iframe id="ChoppyOrc" title="Choppy Orc" width="1900" height="950" src="https://mystifying-goodall-147690.netlify.app/">
+    </iframe>
+
+    <button onclick="fullscreen()">Make iframe fullscreen</button>
+  </body>
+</html>
