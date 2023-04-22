@@ -1,93 +1,74 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Button Example</title>
-  </head>
-  <body>
+    <title>UnberserkGames</title>
+    <link rel="icon" type="image/png" href="https://i.ibb.co/z2DbgKW/icon.png">
     <style>
-      .button {
-        display: inline-block;
+      body {
+        background-color: #2b2d30;
+        color: #fff;
+      }
+
+      button {
+        background-color: #fff;
+        color: #000;
+        font-size: 16px;
+        padding: 10px;
         margin: 10px;
-        padding: 10px 20px;
         border: none;
         border-radius: 5px;
-        background-color: #3498db;
-        color: #fff;
-        font-size: 16px;
-        font-weight: bold;
         cursor: pointer;
-        transition: background-color 0.2s ease;
-      }
-
-      .button:hover {
-        background-color: #2980b9;
-      }
-
-      .button img {
-        display: block;
-        width: 100%;
-        height: auto;
-        margin-bottom: 10px;
       }
     </style>
-
-    <button class="button">
-      <img src="https://via.placeholder.com/200x200" alt="Button 1 Image">
-      Button 1
+  </head>
+  <body>
+    <button>
+      <img src="https://via.placeholder.com/150x150.png?text=Button+1" alt="Button 1 Image">
+      <span>Button 1 Title</span>
     </button>
-
-    <button class="button">
-      <img src="https://via.placeholder.com/200x200" alt="Button 2 Image">
-      Button 2
+    <button>
+      <img src="https://via.placeholder.com/150x150.png?text=Button+2" alt="Button 2 Image">
+      <span>Button 2 Title</span>
     </button>
-
-    <button class="button">
-      <img src="https://via.placeholder.com/200x200" alt="Button 3 Image">
-      Button 3
+    <button>
+      <img src="https://via.placeholder.com/150x150.png?text=Button+3" alt="Button 3 Image">
+      <span>Button 3 Title</span>
     </button>
-
-    <button class="button">
-      <img src="https://via.placeholder.com/200x200" alt="Button 4 Image">
-      Button 4
+    <button>
+      <img src="https://via.placeholder.com/150x150.png?text=Button+4" alt="Button 4 Image">
+      <span>Button 4 Title</span>
     </button>
-
-    <button class="button">
-      <img src="https://via.placeholder.com/200x200" alt="Button 5 Image">
-      Button 5
+    <button>
+      <img src="https://via.placeholder.com/150x150.png?text=Button+5" alt="Button 5 Image">
+      <span>Button 5 Title</span>
     </button>
-
-    <button class="button">
-      <img src="https://via.placeholder.com/200x200" alt="Button 6 Image">
-      Button 6
+    <button>
+      <img src="https://via.placeholder.com/150x150.png?text=Button+6" alt="Button 6 Image">
+      <span>Button 6 Title</span>
     </button>
-
-    <button class="button">
-      <img src="https://via.placeholder.com/200x200" alt="Button 7 Image">
-      Button 7
+    <button>
+      <img src="https://via.placeholder.com/150x150.png?text=Button+7" alt="Button 7 Image">
+      <span>Button 7 Title</span>
     </button>
-
-    <button class="button">
-      <img src="https://via.placeholder.com/200x200" alt="Button 8 Image">
-      Button 8
+    <button>
+      <img src="https://via.placeholder.com/150x150.png?text=Button+8" alt="Button 8 Image">
+      <span>Button 8 Title</span>
     </button>
-
-    <button class="button">
-      <img src="https://via.placeholder.com/200x200" alt="Button 9 Image">
-      Button 9
+    <button>
+      <img src="https://via.placeholder.com/150x150.png?text=Button+9" alt="Button 9 Image">
+      <span>Button 9 Title</span>
     </button>
-
-    <button class="button">
-      <img src="https://via.placeholder.com/200x200" alt="Button 10 Image">
-      Button 10
+    <button>
+      <img src="https://via.placeholder.com/150x150.png?text=Button+10" alt="Button 10 Image">
+      <span>Button 10 Title</span>
     </button>
 
     <script>
-      var buttons = document.getElementsByClassName("button");
-      for (var i = 0; i < buttons.length; i++) {
-        buttons[i].addEventListener("click", function() {
-          window.open("https://ahsisd.github.io/Class/");
+      const buttons = document.querySelectorAll('button');
+      buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+          window.location.href = "https://ahsisd.github.io/Class/";
         });
-      }
+      });
     </script>
-  </body>
-</html>
+ 
