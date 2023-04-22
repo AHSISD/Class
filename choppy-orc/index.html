@@ -6,7 +6,6 @@
   <body>
     <script>
       function fullscreen() {
-        var iframe = document.getElementById("my-iframe");
         if (iframe.requestFullscreen) {
           iframe.requestFullscreen();
         } else if (iframe.webkitRequestFullscreen) {
@@ -15,12 +14,23 @@
           iframe.mozRequestFullScreen();
         }
       }
+
+      // Create the iframe element
+      var iframe = document.createElement("iframe");
+      iframe.src = "https://mystifying-goodall-147690.netlify.app/";
+      iframe.width = 500;
+      iframe.height = 500;
+
+      // Create the button element
+      var button = document.createElement("button");
+      button.textContent = "Make iframe fullscreen";
+
+      // Attach a click event listener to the button
+      button.addEventListener("click", fullscreen);
+
+      // Add the iframe and button elements to the document body
+      document.body.appendChild(iframe);
+      document.body.appendChild(button);
     </script>
-
-    <iframe id="my-iframe" src="https://mystifying-goodall-147690.netlify.app/" width="500" height="500"></iframe>
-    <iframe id="ChoppyOrc" title="Choppy Orc" width="1900" height="950" src="https://mystifying-goodall-147690.netlify.app/">
-    </iframe>
-
-    <button onclick="fullscreen()">Make iframe fullscreen</button>
   </body>
 </html>
