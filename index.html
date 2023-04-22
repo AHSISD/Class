@@ -2,73 +2,63 @@
 <html>
   <head>
     <title>UnberserkGames</title>
-    <link rel="icon" type="image/png" href="https://i.ibb.co/z2DbgKW/icon.png">
+    <link rel="icon" href="https://i.ibb.co/fd0VYJy/icon.png">
     <style>
       body {
         background-color: #2b2d30;
-        color: #fff;
       }
-
       button {
-        background-color: #fff;
-        color: #000;
-        font-size: 16px;
-        padding: 10px;
-        margin: 10px;
+        background-color: white;
+        color: black;
         border: none;
-        border-radius: 5px;
+        padding: 10px 20px;
+        margin: 10px;
         cursor: pointer;
+      }
+      button:hover {
+        background-color: black;
+        color: white;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
       }
     </style>
   </head>
   <body>
-    <button>
-      <img src="https://Unberserk.github.io/Class/Choppy-Orc" alt="Button 1 Image">
-      <span>Choppy Orc</span>
-    </button>
-    <button>
-      <img src="https://Unberserk.github.io/Class/Tetris" alt="https://tetris.wiki/images/5/52/Tetris_%28N3TWORK%29_icon.png">
-      <span>Tetris</span>
-    </button>
-    <button>
-      <img src="https://Unberserk.github.io/Class/Cookie_Clicker" alt="https://m.media-amazon.com/images/I/71VSpLvjtaL.png">
-      <span>Cookie Clicker</span>
-    </button>
-    <button>
-      <img src="https://via.placeholder.com/150x150.png?text=Button+4" alt="Button 4 Image">
-      <span>Button 4 Title</span>
-    </button>
-    <button>
-      <img src="https://via.placeholder.com/150x150.png?text=Button+5" alt="Button 5 Image">
-      <span>Button 5 Title</span>
-    </button>
-    <button>
-      <img src="https://via.placeholder.com/150x150.png?text=Button+6" alt="Button 6 Image">
-      <span>Button 6 Title</span>
-    </button>
-    <button>
-      <img src="https://via.placeholder.com/150x150.png?text=Button+7" alt="Button 7 Image">
-      <span>Button 7 Title</span>
-    </button>
-    <button>
-      <img src="https://via.placeholder.com/150x150.png?text=Button+8" alt="Button 8 Image">
-      <span>Button 8 Title</span>
-    </button>
-    <button>
-      <img src="https://via.placeholder.com/150x150.png?text=Button+9" alt="Button 9 Image">
-      <span>Button 9 Title</span>
-    </button>
-    <button>
-      <img src="https://via.placeholder.com/150x150.png?text=Button+10" alt="Button 10 Image">
-      <span>Button 10 Title</span>
-    </button>
+    <h1>Welcome to UnberserkGames</h1>
+    <button id="button1">Button 1</button>
+    <button id="button2">Button 2</button>
+    <button id="button3">Button 3</button>
+    <button id="button4">Button 4</button>
+    <button id="button5">Button 5</button>
+    <button id="button6">Button 6</button>
+    <button id="button7">Button 7</button>
+    <button id="button8">Button 8</button>
+    <button id="button9">Button 9</button>
+    <button id="button10">Button 10</button>
 
     <script>
-      const buttons = document.querySelectorAll('button');
-      buttons.forEach((button) => {
-        button.addEventListener('click', () => {
-          window.location.href = "https://ahsisd.github.io/Class/";
-        });
-      });
+      var button1 = document.getElementById("button1");
+      button1.innerHTML = "<img src='https://via.placeholder.com/150x150?text=Button+1+Image'><br>Button 1 Title";
+      var button2 = document.getElementById("button2");
+      button2.innerHTML = "<img src='https://m.media-amazon.com/images/I/71VSpLvjtaL.png'><br>Button 2 Title";
+      var button3 = document.getElementById("button3");
+      button3.innerHTML = "<img src="https://tetris.wiki/images/5/52/Tetris_%28N3TWORK%29_icon.png'><br>Button 3 Title";
+      var button4 = document.getElementById("button4");
+      button4.innerHTML = "Button 4 Title";
+      var button5 = document.getElementById("button5");
+      button5.innerHTML = "Button 5 Title";
+      var button6 = document.getElementById("button6");
+      button6.innerHTML = "Button 6 Title";
+      var button7 = document.getElementById("button7");
+      button7.innerHTML = "Button 7 Title";
+      var button8 = document.getElementById("button8");
+      button8.innerHTML = "Button 8 Title";
+      var button9 = document.getElementById("button9");
+      button9.innerHTML = "Button 9 Title";
+      var button10 = document.getElementById("button10");
+      button10.innerHTML = "Button 10 Title";
     </script>
- 
+  </body>
+</html>
