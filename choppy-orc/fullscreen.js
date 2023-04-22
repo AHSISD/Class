@@ -1,24 +1,27 @@
 /**
- * This function takes an iframe element and makes it go fullscreen.
+ * This function takes an iframe element and makes it go fullscreen when the link is opened.
  * 
- * @param {HTMLElement} iframe - The iframe element to make fullscreen.
- * @throws {TypeError} Will throw an error if the argument is not an HTML element.
+ * @param {string} iframeId - The id of the iframe element
  */
- function makeIframeFullscreen(iframe) {
+function openFullscreen(iframeId) {
   try {
-    // Check if the argument is an HTML element
-    if (!(iframe instanceof HTMLElement)) {
-      throw new TypeError("Argument must be an HTML element");
+    // Get the iframe element
+    const iframe = document.getElementById(iframeId);
+    
+    // Check if the iframe exists
+    if (!iframe) {
+      throw new Error("Iframe element not found");
     }
     
     // Check if the iframe is already in fullscreen mode
     if (document.fullscreenElement === iframe) {
-      return;
+      throw new Error("Iframe is already in fullscreen mode");
     }
     
     // Request fullscreen mode for the iframe
     iframe.requestFullscreen();
   } catch (error) {
+    // Log the error
     console.error(error);
   }
 }
