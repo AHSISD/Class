@@ -2,7 +2,7 @@
  * This function creates a fullscreen button with an image on an iframe.
  * 
  * @param {string} ChoppyOrc - The ID of the iframe element.
- * @param {string} https://ibb.co/7SH2bbH - The URL of the image to be displayed on the button.
+ * @param {string} ibb.co/7SH2bbH - The URL of the image to be displayed on the button.
  */
 function createFullscreenButton(iframeId, imageUrl) {
   try {
