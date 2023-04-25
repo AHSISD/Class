@@ -104,7 +104,7 @@ function gameOver() {
 }
 
 function drawBoard() {
-    const canvas = document.getElementById("tetris");
+    const canvas = document.getElementById("TetrisGPT");
     const context = canvas.getContext("2d");
     context.clearRect(0, 0, canvas.width, canvas.height);
   
