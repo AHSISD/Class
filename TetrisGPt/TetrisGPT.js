@@ -104,30 +104,60 @@ function gameOver() {
 }
 
 function drawBoard() {
-  const canvas = document.getElementById("tetris");
-  const context = canvas.getContext("2d");
-  context.clearRect(0, 0, canvas.width, canvas.height);
-  for (let y = 0; y < board.length; y++) {
-    for (let x = 0; x < board[y].length; x++) {
-      if (board[y][x] !== 0) {
-        context.fillStyle = board[y][x];
-        context.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
-        context.strokeStyle = "black";
-        context.strokeRect(x * blockSize, y * blockSize, blockSize, blockSize);
+    const canvas = document.getElementById("tetris");
+    const context = canvas.getContext("2d");
+    context.clearRect(0, 0, canvas.width, canvas.height);
+  
+    // Draw the board
+    for (let y = 0; y < board.length; y++) {
+      for (let x = 0; x < board[y].length; x++) {
+        if (board[y][x] !== 0) {
+          context.fillStyle = board[y][x];
+          context.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
+          context.strokeStyle = "black";
+          context.strokeRect(x * blockSize, y * blockSize, blockSize, blockSize);
+        }
+      }
+    }
+  
+    // Draw the current piece
+    for (let y = 0; y < currentPiece.shape.length; y++) {
+      for (let x = 0; x < currentPiece.shape[y].length; x++) {
+        if (currentPiece.shape[y][x] !== 0) {
+          context.fillStyle = currentPiece.color;
+          context.fillRect((currentPiece.x + x) * blockSize, (currentPiece.y + y) * blockSize, blockSize, blockSize);
+          context.strokeStyle = "black";
+          context.strokeRect((currentPiece.x + x) * blockSize, (currentPiece.y + y) * blockSize, blockSize, blockSize);
+        }
+      }
+    }
+  
+    // Draw the shadow piece
+    const shadowPiece = {
+      shape: currentPiece.shape,
+      x: currentPiece.x,
+      y: currentPiece.y,
+      color: "#bbb"
+    };
+  
+    while (!isColliding(shadowPiece)) {
+      shadowPiece.y++;
+    }
+  
+    shadowPiece.y--;
+  
+    for (let y = 0; y < shadowPiece.shape.length; y++) {
+      for (let x = 0; x < shadowPiece.shape[y].length; x++) {
+        if (shadowPiece.shape[y][x] !== 0) {
+          context.fillStyle = shadowPiece.color;
+          context.fillRect((shadowPiece.x + x) * blockSize, (shadowPiece.y + y) * blockSize, blockSize, blockSize);
+          context.strokeStyle = "black";
+          context.strokeRect((shadowPiece.x + x) * blockSize, (shadowPiece.y + y) * blockSize, blockSize, blockSize);
+        }
       }
     }
   }
-  for (let y = 0; y < currentPiece.shape.length; y++) {
-    for (let x = 0; x < currentPiece.shape[y].length; x++) {
-      if (currentPiece.shape[y][x] !== 0) {
-        context.fillStyle = currentPiece.color;
-        context.fillRect((currentPiece.x + x) * blockSize, (currentPiece.y + y) * blockSize, blockSize, blockSize);
-        context.strokeStyle = "black";
-        context.strokeRect((currentPiece.x + x) * blockSize, (currentPiece.y + y) * blockSize, blockSize, blockSize);
-      }
-    }
-  }
-}
+  
 
 function gameLoop() {
   movePiece(0, 1);
