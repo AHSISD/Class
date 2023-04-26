@@ -1,198 +1,314 @@
-const boardWidth = 10;
-const boardHeight = 20;
-const blockSize = 24;
-const blockColors = ["red", "orange", "yellow", "green", "blue", "purple"];
+const canvas = document.getElementById('gameBoard');
+const ctx = canvas.getContext('2d');
+const ROWS = 20;
+const COLS = 10;
+const BLOCK_SIZE = 24;
+const EMPTY_BLOCK = '#ccc';
 
 let board = [];
-let currentPiece;
-let score = 0;
-
-const shapes = [
-  [[1,1,1],[0,1,0]],
-  [[0,2,2],[2,2,0]],
-  [[3,3,0],[0,3,3]],
-  [[4,0,0],[4,4,4]],
-  [[0,0,5],[5,5,5]],
-  [[6,6],[6,6]],
-  [[7,7,7,7]]
-];
-
-function newPiece() {
-  const shape = shapes[Math.floor(Math.random() * shapes.length)];
-  const piece = { shape: shape, x: Math.floor((boardWidth - shape[0].length) / 2), y: 0, color: blockColors[Math.floor(Math.random() * blockColors.length)] };
-  currentPiece = piece;
-  if (isColliding()) {
-    gameOver();
+for (let row = 0; row < ROWS; row++) {
+  board[row] = [];
+  for (let col = 0; col < COLS; col++) {
+    board[row][col] = EMPTY_BLOCK;
   }
 }
 
-function isColliding() {
-  for (let y = 0; y < currentPiece.shape.length; y++) {
-    for (let x = 0; x < currentPiece.shape[y].length; x++) {
-      if (currentPiece.shape[y][x] !== 0) {
-        const boardX = currentPiece.x + x;
-        const boardY = currentPiece.y + y;
-        if (boardY >= board.length || boardX < 0 || boardX >= board[boardY].length || board[boardY][boardX] !== 0) {
-          return true;
-        }
+function drawBlock(x, y, color) {
+  ctx.fillStyle = color;
+  ctx.fillRect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+  ctx.strokeStyle = 'black';
+  ctx.strokeRect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+}
+
+function drawBoard() {
+  for (let row = 0; row < ROWS; row++) {
+    for (let col = 0; col < COLS; col++) {
+      drawBlock(col, row, board[row][col]);
+    }
+  }
+}
+
+drawBoard();
+
+let currentPiece = {
+  x: 0,
+  y: 0,
+  blocks: [
+    [1, 1],
+    [1, 1]
+  ]
+};
+
+function drawPiece() {
+  currentPiece.blocks.forEach(function (row, dy) {
+    row.forEach(function (value, dx) {
+      if (value) {
+        drawBlock(currentPiece.x + dx, currentPiece.y + dy, 'blue');
+      }
+    });
+  });
+}
+
+function drawGhostPiece() {
+  let ghostPiece = Object.assign({}, currentPiece);
+  while (!collides(board, ghostPiece)) {
+    ghostPiece.y++;
+  }
+  ghostPiece.y--;
+  ghostPiece.blocks.forEach(function (row, dy) {
+    row.forEach(function (value, dx) {
+      if (value) {
+        drawBlock(ghostPiece.x + dx, ghostPiece.y + dy, '#aaa');
+      }
+    });
+  });
+}
+
+function dropPiece() {
+  currentPiece.y += 1;
+  if (collides(board, currentPiece)) {
+    currentPiece.y -= 1;
+    merge(board, currentPiece);
+    currentPiece.y = 0;
+    currentPiece.x = Math.floor(Math.random() * (COLS - currentPiece.blocks[0].length + 1));
+    currentPiece.blocks = randomPiece();
+  }
+}
+
+function collides(board, piece) {
+  for (let row = 0; row < piece.blocks.length; row++) {
+    for (let col = 0; col < piece.blocks[row].length; col++) {
+      if (piece.blocks[row][col] && (board[piece.y + row] && board[piece.y + row][piece.x + col]) !== EMPTY_BLOCK) {
+        return true;
       }
     }
   }
   return false;
 }
 
-function movePiece(dx, dy) {
-  currentPiece.x += dx;
-  currentPiece.y += dy;
-  if (isColliding()) {
-    currentPiece.x -= dx;
-    currentPiece.y -= dy;
-    if (dy > 0) {
-      lockPiece();
-    }
+function merge(board, piece) {
+  piece.blocks.forEach(function (row, dy) {
+    row.forEach(function (value, dx) {
+      if (value) {
+        board[piece.y + dy][piece.x + dx] = 'blue';
+      }
+    });
+  });
+}
+
+function clearBoard() {
+  board.forEach(function (row, y) {
+    row.forEach(function (value, x) {
+      board[y][x] = EMPTY_BLOCK;
+    });
+  });
+}
+
+function drop() {
+  dropPiece();
+  clearBoard();
+  drawPiece();
+  drawGhostPiece();
+  drawBoard();
+  setTimeout(drop, 1000);
+}
+
+function movePieceLeft() {
+  currentPiece.x -= 1;
+  if (collides(board, currentPiece)) {
+    currentPiece.x += 1;
+  }
+}
+  
+function movePieceRight() {
+  currentPiece.x += 1;
+  if (collides(board, currentPiece)) {
+    currentPiece.x -= 1;
   }
 }
 
 function rotatePiece() {
-  const rotatedPiece = [];
-  for (let x = 0; x < currentPiece.shape[0].length; x++) {
-    const newRow = [];
-    for (let y = currentPiece.shape.length - 1; y >= 0; y--) {
-      newRow.push(currentPiece.shape[y][x]);
-    }
-    rotatedPiece.push(newRow);
-  }
-  currentPiece.shape = rotatedPiece;
-  if (isColliding()) {
-    currentPiece.shape = shapes[shapes.indexOf(currentPiece.shape) - 1];
-  }
-}
-
-function lockPiece() {
-  for (let y = 0; y < currentPiece.shape.length; y++) {
-    for (let x = 0; x < currentPiece.shape[y].length; x++) {
-      if (currentPiece.shape[y][x] !== 0) {
-        const boardX = currentPiece.x + x;
-        const boardY = currentPiece.y + y;
-        board[boardY][boardX] = currentPiece.color;
-      }
+  let blocks = currentPiece.blocks;
+  let newBlocks = [];
+  for (let row = 0; row < blocks.length; row++) {
+    newBlocks[row] = [];
+    for (let col = 0; col < blocks.length; col++) {
+      newBlocks[row][col] = blocks[blocks.length - col - 1][row];
     }
   }
-  checkRows();
-  newPiece();
-}
-
-function checkRows() {
-  for (let y = 0; y < board.length; y++) {
-    if (board[y].every(block => block !== 0)) {
-      board.splice(y, 1);
-      board.unshift(new Array(boardWidth).fill(0));
-      score += 10;
-      updateScore();
-    }
+  currentPiece.blocks = newBlocks;
+  if (collides(board, currentPiece)) {
+    currentPiece.blocks = blocks;
   }
 }
 
-function updateScore() {
-  document.getElementById("score").textContent = score`
-  ${score}`;
-}
-
-function gameOver() {
-  clearInterval(intervalId);
-  alert("Game Over");
-}
-
-function drawBoard() {
-    const canvas = document.getElementById("TetrisGPT");
-    const context = canvas.getContext("2d");
-    context.clearRect(0, 0, canvas.width, canvas.height);
-  
-    // Draw the board
-    for (let y = 0; y < board.length; y++) {
-      for (let x = 0; x < board[y].length; x++) {
-        if (board[y][x] !== 0) {
-          context.fillStyle = board[y][x];
-          context.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
-          context.strokeStyle = "black";
-          context.strokeRect(x * blockSize, y * blockSize, blockSize, blockSize);
-        }
-      }
-    }
-  
-    // Draw the current piece
-    for (let y = 0; y < currentPiece.shape.length; y++) {
-      for (let x = 0; x < currentPiece.shape[y].length; x++) {
-        if (currentPiece.shape[y][x] !== 0) {
-          context.fillStyle = currentPiece.color;
-          context.fillRect((currentPiece.x + x) * blockSize, (currentPiece.y + y) * blockSize, blockSize, blockSize);
-          context.strokeStyle = "black";
-          context.strokeRect((currentPiece.x + x) * blockSize, (currentPiece.y + y) * blockSize, blockSize, blockSize);
-        }
-      }
-    }
-  
-    // Draw the shadow piece
-    const shadowPiece = {
-      shape: currentPiece.shape,
-      x: currentPiece.x,
-      y: currentPiece.y,
-      color: "#bbb"
-    };
-  
-    while (!isColliding(shadowPiece)) {
-      shadowPiece.y++;
-    }
-  
-    shadowPiece.y--;
-  
-    for (let y = 0; y < shadowPiece.shape.length; y++) {
-      for (let x = 0; x < shadowPiece.shape[y].length; x++) {
-        if (shadowPiece.shape[y][x] !== 0) {
-          context.fillStyle = shadowPiece.color;
-          context.fillRect((shadowPiece.x + x) * blockSize, (shadowPiece.y + y) * blockSize, blockSize, blockSize);
-          context.strokeStyle = "black";
-          context.strokeRect((shadowPiece.x + x) * blockSize, (shadowPiece.y + y) * blockSize, blockSize, blockSize);
-        }
-      }
-    }
+function hardDrop() {
+  while (!collides(board, currentPiece)) {
+    currentPiece.y += 1;
   }
-  
-
-function gameLoop() {
-  movePiece(0, 1);
-  drawBoard();
+  currentPiece.y -= 1;
+  dropPiece();
 }
 
-function startGame() {
-  board = new Array(boardHeight).fill().map(() => new Array(boardWidth).fill(0));
-  score = 0;
-  updateScore();
-  newPiece();
-  intervalId = setInterval(gameLoop, 500);
-}
-
-document.addEventListener("keydown", event => {
-  switch (event.code) {
-    case "ArrowLeft":
-      movePiece(-1, 0);
-      break;
-    case "ArrowRight":
-      movePiece(1, 0);
-      break;
-    case "ArrowDown":
-      movePiece(0, 1);
-      break;
-    case "KeyZ":
-      rotatePiece();
-      break;
-    case "Space":
-      while (!isColliding()) {
-        movePiece(0, 1);
-      }
-      lockPiece();
-      break;
+document.addEventListener('keydown', function (event) {
+  if (event.code === 'ArrowLeft') {
+    movePieceLeft();
+  } else if (event.code === 'ArrowRight') {
+    movePieceRight();
+  } else if (event.code === 'ArrowUp') {
+    rotatePiece();
+  } else if (event.code === 'ArrowDown') {
+    dropPiece();
+  } else if (event.code === 'Space') {
+    hardDrop();
   }
 });
 
-startGame();
+currentPiece.blocks = randomPiece();
+drop();
+currentPiece.blocks = randomPiece();
+
+function randomPiece() {
+  let pieces = [    [      [1, 1],
+      [1, 1]
+    ],
+    [      [1, 1, 0],
+      [0, 1, 1]
+    ],
+    [      [0, 1, 1],
+      [1, 1, 0]
+    ],
+    [      [1, 1, 1, 1]
+    ],
+    [      [1, 1, 1],
+      [0, 1, 0]
+    ],
+    [      [0, 1, 0],
+      [1, 1, 1]
+    ],
+    [      [1, 0, 0],
+      [1, 1, 1]
+    ]
+  ];
+  let randomIndex = Math.floor(Math.random() * pieces.length);
+  return pieces[randomIndex];
+}
+
+// add score counter
+let score = 0;
+
+function drawScore() {
+  ctx.font = "24px Arial";
+  ctx.fillStyle = "black";
+  ctx.textAlign = "center";
+  ctx.fillText(`Score: ${score}`, canvas.width / 2, canvas.height - 50);
+}
+
+function updateScore(linesCleared) {
+  if (linesCleared > 0) {
+    if (linesCleared === 1) {
+      score += 100;
+    } else if (linesCleared === 2) {
+      score += 250;
+    } else if (linesCleared === 3) {
+      score += 500;
+    } else if (linesCleared === 4) {
+      score += 1000;
+    }
+    drawScore();
+  }
+}
+
+// check for lines cleared
+function checkForLines() {
+  let linesCleared = 0;
+  for (let row = 0; row < ROWS; row++) {
+    if (board[row].every(block => block !== EMPTY_BLOCK)) {
+      board.splice(row, 1);
+      board.unshift(new Array(COLS).fill(EMPTY_BLOCK));
+      linesCleared++;
+    }
+  }
+  updateScore(linesCleared);
+}
+
+// game over function
+function gameOver() {
+  clearInterval(intervalId);
+  ctx.font = "48px Arial";
+  ctx.fillStyle = "black";
+  ctx.textAlign = "center";
+  ctx.fillText("Game Over", canvas.width / 2, canvas.height / 2);
+}
+
+// game loop
+let intervalId = null;
+
+function startGame() {
+  clearBoard();
+  score = 0;
+  drawScore();
+  currentPiece = {
+    x: 0,
+    y: 0,
+    blocks: randomPiece()
+  };
+  intervalId = setInterval(function () {
+    dropPiece();
+    clearBoard();
+    drawPiece();
+    drawGhostPiece();
+    drawBoard();
+    checkForLines();
+    if (collides(board, currentPiece)) {
+      clearInterval(intervalId);
+      gameOver();
+    }
+  }, 1000);
+}
+
+// start game on button press
+const startButton = document.getElementById("startButton");
+startButton.addEventListener("click", startGame);
+function startGame() {
+  // initialize the game board and current piece
+  gameBoard = new Array(boardWidth * boardHeight).fill(0);
+  currentPiece = { blocks: randomPiece(), x: 3, y: 0 };
+
+  // set the game state to "playing"
+  gameState = "playing";
+
+  // set the timer interval to move the piece down every 500 milliseconds
+  timer = setInterval(moveDown, 500);
+
+  // hide the start button
+  startButton.style.display = "none";
+}
+
+function startGame() {
+  // reset the board
+  board = new Board();
+  
+  // create a new piece and add it to the board
+  currentPiece = new Piece(randomPiece());
+  board.addPiece(currentPiece);
+
+  // start the game loop
+  gameLoopInterval = setInterval(gameLoop, GAME_LOOP_TIME);
+
+  // hide the start button and show the pause button
+  startButton.style.display = "none";
+  pauseButton.style.display = "block";
+}
+
+// add event listener to pause button
+pauseButton.addEventListener("click", pauseGame);
+
+function pauseGame() {
+  // pause the game loop
+  clearInterval(gameLoopInterval);
+
+  // hide the pause button and show the start button
+  pauseButton.style.display = "none";
+  startButton.style.display = "block";
+}
