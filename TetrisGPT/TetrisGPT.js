@@ -33,17 +33,15 @@ drawBoard();
 let currentPiece = {
   x: 0,
   y: 0,
-  blocks: [
-    [1, 1],
-    [1, 1]
-  ]
+  color: '',
+  blocks: []
 };
 
 function drawPiece() {
   currentPiece.blocks.forEach(function (row, dy) {
     row.forEach(function (value, dx) {
       if (value) {
-        drawBlock(currentPiece.x + dx, currentPiece.y + dy, 'blue');
+        drawBlock(currentPiece.x + dx, currentPiece.y + dy, currentPiece.color);
       }
     });
   });
@@ -71,6 +69,7 @@ function dropPiece() {
     merge(board, currentPiece);
     currentPiece.y = 0;
     currentPiece.x = Math.floor(Math.random() * (COLS - currentPiece.blocks[0].length + 1));
+    currentPiece.color = randomColor();
     currentPiece.blocks = randomPiece();
   }
 }
@@ -90,7 +89,7 @@ function merge(board, piece) {
   piece.blocks.forEach(function (row, dy) {
     row.forEach(function (value, dx) {
       if (value) {
-        board[piece.y + dy][piece.x + dx] = 'blue';
+        board[piece.y + dy][piece.x + dx] = piece.color;
       }
     });
   });
